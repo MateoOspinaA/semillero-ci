@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "3.4.0.2513"
+}
+
+group 'com.mateo'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'com/mateo/semillero/model/**'
+            ])
+        })
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "PracticaSemillero2"
+        property "sonar.organization", "darkospina0501"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.coverage.exclusions", "**/model/**" // Excluye la carpeta model
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+}
+
+test {
+    useJUnitPlatform()
+}
