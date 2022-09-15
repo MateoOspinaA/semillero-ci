@@ -33,7 +33,4 @@ public class WordCounterDefault implements WordCounter {
         }
     }
 
-
-
-
 }
