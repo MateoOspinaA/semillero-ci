@@ -24,10 +24,11 @@ pipeline{
         }
         stage('Sonar') {
                steps {
-               echo "------------>SonarCloud<------------"
-               withSonarQubeEnv('SonarCloud')
-                 bat 'gradlew sonarqube'
+                    echo "------------>SonarCloud<------------"
+                    withSonarQubeEnv('SonarCloud'){
+                        bat 'gradlew sonarqube'
+                    }
                }
         }
-         }
     }
+}
