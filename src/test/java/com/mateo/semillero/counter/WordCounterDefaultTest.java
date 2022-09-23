@@ -21,4 +21,15 @@ class WordCounterDefaultTest {
         Assertions.assertEquals(2, summary.getNumberOfLines());
         Assertions.assertEquals(5, summary.getNumberOfWords());
     }
+
+    @Test
+    void mustReturnIncorrectSummary() throws IOException {
+        Path resourceDirectory = Paths.get("src", "test", "resources");
+        String absolutePath = resourceDirectory.toFile().getAbsolutePath();
+        WordCounter wordCounter = new WordCounterDefault();
+
+        Summary summary = wordCounter.process(absolutePath + File.separator+"test.txt");
+        Assertions.assertNotEquals(5, summary.getNumberOfLines());
+        Assertions.assertNotEquals(2, summary.getNumberOfWords());
+    }
 }
