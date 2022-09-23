@@ -18,15 +18,16 @@ pipeline{
         }
         stage('Coverage') {
               steps {
-                echo "------------>Coverage<------------"
+                 echo "------------>Coverage<------------"
                  bat 'gradlew jacocoTestReport'
               }
         }
-//         stage('Sonar') {
-//                steps {
-//                withSonarQubeEnv('SonarCloud')
-//                  bat 'gradlew sonarqube'
-//                }
-//         }//SONAR_TOKEN=d37457c17e8f422a360e1b571c02ccfcfce327bb
+        stage('Sonar') {
+               steps {
+               echo "------------>SonarCloud<------------"
+               withSonarQubeEnv('SonarCloud')
+                 bat 'gradlew sonarqube'
+               }
+        }
          }
     }
