@@ -28,7 +28,7 @@ pipeline{
                steps {
                     echo "------------>SonarCloud<------------"
                     withSonarQubeEnv('SonarCloud'){
-                        bat 'gradlew sonarqube'
+                        bat "gradlew sonarqube -Dsonar.branch.targe=${BRANCH_NAME} -Dsonar.branch.name=${BRANCH_NAME}"
                     }
                }
         }
