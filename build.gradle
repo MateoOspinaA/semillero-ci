@@ -18,6 +18,7 @@ jacoco {
 jacocoTestReport {
     reports {
         xml.required = true
+        xml.enabled true
     }
     afterEvaluate {
         classDirectories.from = files(classDirectories.files.collect {
@@ -35,6 +36,10 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.coverage.exclusions", "**/model/**" // Excluye la carpeta model
     }
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
