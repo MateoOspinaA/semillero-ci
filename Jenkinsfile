@@ -41,17 +41,5 @@ pipeline{
                 }
             }
         }
-        stage("Generate and Publish Artifact") {
-                    when {
-                        allOf {
-                            branch "main"
-                            tag "v*.*.*"
-                        }
-                    }
-                    steps {
-                        echo "Generate Artifact ..."
-                        echo "Publish Artifact ..."
-                    }
-                }
     }
 }
