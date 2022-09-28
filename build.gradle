@@ -7,9 +7,6 @@ plugins {
 group 'com.mateo'
 version '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
-}
 
 jacoco {
     toolVersion = "0.8.8"
@@ -18,7 +15,7 @@ jacoco {
 jacocoTestReport {
     reports {
         xml.required = true
-        xml.enabled true
+        //xml.enabled true
     }
     afterEvaluate {
         classDirectories.from = files(classDirectories.files.collect {
@@ -50,3 +47,4 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
