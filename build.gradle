@@ -7,9 +7,6 @@ plugins {
 group 'com.mateo'
 version '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
-}
 
 jacoco {
     toolVersion = "0.8.8"
@@ -18,6 +15,7 @@ jacoco {
 jacocoTestReport {
     reports {
         xml.required = true
+        //xml.enabled true
     }
     afterEvaluate {
         classDirectories.from = files(classDirectories.files.collect {
@@ -37,6 +35,10 @@ sonarqube {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
@@ -45,3 +47,4 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+

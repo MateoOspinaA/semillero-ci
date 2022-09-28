@@ -12,31 +12,45 @@ pipeline{
                 bat 'gradlew clean build -x test'
             }
         }
-        stage('test') {
+        stage('Test') {
              steps {
                 echo "------------>test<------------"
                 bat 'gradlew test'
              }
         }
         stage('Coverage') {
-              steps {
+            steps {
                  echo "------------>Coverage<------------"
                  bat 'gradlew jacocoTestReport'
               }
         }
         stage('Sonar') {
-               steps {
-                    echo "------------>SonarCloud<------------"
-                    withSonarQubeEnv('SonarCloud'){
-                        bat "gradlew sonarqube -Dsonar.branch.targe=${BRANCH_NAME} -Dsonar.branch.name=${BRANCH_NAME}"
+            steps {
+                echo "------------>SonarCloud<------------"
+                withSonarQubeEnv(installationName: 'SonarCloud') {
+                    script {
+                        bat "gradlew sonarqube -Dsonar.branch.name=${BRANCH_NAME}"
                     }
-               }
+                }
+            }
         }
         stage("Quality Gate") {
-                    steps {
-                        timeout(time: 1, unit: 'HOURS') {
-                            waitForQualityGate abortPipeline: true
+            steps {
+                timeout(5) {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        stage("Generate and Publish Artifact") {
+                    when {
+                        allOf {
+                            branch "main"
+                            tag "v*.*.*"
                         }
+                    }
+                    steps {
+                        echo "Generate Artifact ..."
+                        echo "Publish Artifact ..."
                     }
                 }
     }
